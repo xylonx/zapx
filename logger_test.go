@@ -21,9 +21,13 @@ func (decoder traceDecoder) DecodeCtx(ctx context.Context) []zap.Field {
 func TestLog(t *testing.T) {
 	l := zap.NewExample()
 	logger := zapx.WrapZapLogger(l, nil)
+
 	ctx := context.WithValue(context.Background(), "A", "ababab")
 	logger.WithContext(ctx).Info("xxxx")
 
 	ctxLogger := zapx.WrapZapLogger(l, traceDecoder{})
 	ctxLogger.WithContext(ctx).Info("xxxx")
+
+	zapx.Info("Hello world!", zap.String("name", "xylonx"))
+	zapx.Warn("this is a warn info", zap.String("name", "xylon"))
 }
