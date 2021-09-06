@@ -47,3 +47,15 @@ func main() {
 	logger.WithContext(ctx).Info("xxxx")
 }
 ```
+
+or using the pre-wrapped function
+
+1. init the zapx
+
+```go
+func init() {
+	zapx.WrapZapLogger(zap.NewExample(), nil)
+
+	zapx.Info("Hello", zap.String("env", "test"))
+}
+```
