@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/SkyAPM/go2sky v1.2.0
+	go.opentelemetry.io/otel/trace v0.20.0
 	go.uber.org/zap v1.19.0
 )
 
@@ -11,6 +12,7 @@ require (
 	github.com/golang/protobuf v1.5.0 // indirect
 	github.com/google/uuid v1.1.2 // indirect
 	github.com/pkg/errors v0.8.1 // indirect
+	go.opentelemetry.io/otel v0.20.0 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
 	golang.org/x/net v0.0.0-20200222125558-5a598a2470a0 // indirect
