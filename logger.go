@@ -38,6 +38,13 @@ func WrapZapLogger(l *zap.Logger, decoder CtxDecoder) *WrapLogger {
 	return logger
 }
 
+func Use(l *zap.Logger, decoder CtxDecoder) {
+	logger = &WrapLogger{
+		logger:     l,
+		CtxDecoder: decoder,
+	}
+}
+
 func (log *WrapLogger) clone() *WrapLogger {
 	l := *log.logger
 	return &WrapLogger{
