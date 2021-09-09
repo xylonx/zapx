@@ -54,7 +54,7 @@ or using the pre-wrapped function
 
 ```go
 func init() {
-	zapx.WrapZapLogger(zap.NewExample(), nil)
+	zapx.Use(zap.NewExample(), nil)
 
 	zapx.Info("Hello", zap.String("env", "test"))
 }
