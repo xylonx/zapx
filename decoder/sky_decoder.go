@@ -1,4 +1,4 @@
-package zapxdecoder
+package decoder
 
 import (
 	"context"

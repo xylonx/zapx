@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/SkyAPM/go2sky v1.2.0
+	github.com/natefinch/lumberjack v2.0.0+incompatible
 	go.opentelemetry.io/otel/trace v0.20.0
 	go.uber.org/zap v1.19.0
 )
@@ -21,5 +22,6 @@ require (
 	google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013 // indirect
 	google.golang.org/grpc v1.36.1 // indirect
 	google.golang.org/protobuf v1.26.0 // indirect
+	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 	skywalking.apache.org/repo/goapi v0.0.0-20210401062122-a049ca15c62d // indirect
 )

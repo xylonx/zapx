@@ -6,6 +6,12 @@ this is a wrapper of [zap](https://github.com/uber-go/zap). The biggest differen
 
 ## How to Use
 
+there are 3 ways to use zapx:
+
+- packaged-embedded way
+
+	nothing to init! just using the method ``
+
 Wrap the zap logger by `zapx.WrapZapLogger()`
 
 the `zapx.WrapZapLogger()` function receives 2 args: logger which is `*zap.Logger`, and decoder which is an interface `CtxDecoder`.
