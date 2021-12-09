@@ -2,66 +2,70 @@
 
 this is a wrapper of [zap](https://github.com/uber-go/zap). The biggest difference of them is that the wrapper add `WithContext` method for logger.
 
-**Attention: Sugger is not supportted now!**
-
 ## How to Use
 
 there are 3 ways to use zapx:
 
 - packaged-embedded way
 
-	nothing to init! just using the method ``
+nothing to init! just using the method `zapx.Info()`, `zapx.Warnf()` and so on.
 
-Wrap the zap logger by `zapx.WrapZapLogger()`
-
-the `zapx.WrapZapLogger()` function receives 2 args: logger which is `*zap.Logger`, and decoder which is an interface `CtxDecoder`.
-
-the `CtxDecoder` interface contains just one method: `DecodeCtx(context.Context) []zap.Field`. It gets values from context and converts them into zap.Field. If passing nil, it will ignore context.
-
-If you want to get value from context, you can define your own decoder and pass it as the second parameter.
-
-examples:
-
-- decoder is nil:
-
-```go
+```golang
 func main() {
-	l := zap.NewExample()
-	logger := zapx.WrapZapLogger(l, nil)
-	ctx := context.WithValue(context.Background(), "A", "ababab")
-	logger.WithContext(ctx).Info("xxxx")
+	zapx.Info("Hello")
+	zapx.Error("this is an error", zap.Error(errors.New("error!")))
+	zapx.Warnf("%v", "warn")
 }
 ```
 
-- self-define decoder:
+- global logger instance
 
-```go
-type traceDecoder struct{}
-
-func (decoder traceDecoder) DecodeCtx(ctx context.Context) []zap.Field {
-	fields := make([]zap.Field, 0)
-	if traceId, ok := ctx.Value("TraceId").(string); ok {
-		fields = append(fields, zap.String("TraceId", traceId))
+```golang
+func main() {
+	logger, err := zapx.NewLogger(&zapx.Option{})
+	if err != nil {
+		panic(err)
 	}
-	return fields
-}
 
+	logger.Info("hello")
+	logger.Error("this is an error", zap.Error(errors.New("error!")))
+	logger.Warnf("%v", "warn")
+}
+```
+
+- overwrite packaged-embedded variable
+
+```golang
 func main() {
-	l := zap.NewExample()
-	logger := zapx.WrapZapLogger(l, traceDecoder{})
-	ctx := context.WithValue(context.Background(), "TraceId", "ababab")
-	logger.WithContext(ctx).Info("xxxx")
+	err = zapx.Use(&zapx.Option{})
+	if err != nil {
+		panic(err)
+	}
+
+	zapx.Info("Hello")
+	zapx.Error("this is an error", zap.Error(errors.New("error!")))
+	zapx.Warnf("%v", "warn")
 }
 ```
 
-or using the pre-wrapped function
+## Feature
 
-1. init the zapx
+context decoder
 
-```go
-func init() {
-	zapx.Use(zap.NewExample(), nil)
+the CtxDecoder is just an interface:
 
-	zapx.Info("Hello", zap.String("env", "test"))
+```golang
+type CtxDecoder interface {
+	DecodeCtx(context.Context) []zap.Field
 }
 ```
+
+it 'decode' the context and get values from it. Then it converts them into []zap.Field to log. 
+
+It is designed to integrated with `Tracing`: get tracing related info from context, like traceID.
+
+Now, zapx implements some context decoder:
+
+- [x] [open-telemetry](https://github.com/open-telemetry/opentelemetry-go)
+- [x] [sky-walking](https://github.com/SkyAPM/go2sky)
+- [ ] [elastic-apm](https://github.com/elastic/apm-agent-go)

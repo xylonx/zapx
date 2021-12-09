@@ -2,7 +2,10 @@ module example1
 
 go 1.17
 
-require github.com/xylonx/zapx v0.1.1
+require (
+	github.com/xylonx/zapx v0.1.1
+	go.uber.org/zap v1.19.0
+)
 
 require (
 	github.com/SkyAPM/go2sky v1.2.0 // indirect
@@ -14,7 +17,6 @@ require (
 	go.opentelemetry.io/otel/trace v0.20.0 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
-	go.uber.org/zap v1.19.0 // indirect
 	golang.org/x/net v0.0.0-20200222125558-5a598a2470a0 // indirect
 	golang.org/x/sys v0.0.0-20200116001909-b77594299b42 // indirect
 	golang.org/x/text v0.3.1-0.20181010134911-4d1c5fb19474 // indirect
