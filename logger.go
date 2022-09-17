@@ -11,6 +11,7 @@ import (
 
 	"github.com/natefinch/lumberjack"
 	"github.com/xylonx/zapx/decoder"
+	"go.opentelemetry.io/otel/trace"
 )
 
 var (
@@ -28,6 +29,8 @@ type Logger struct {
 
 	opts   *Option
 	logger *zap.Logger
+
+	tracer trace.Tracer
 
 	errConverter *errorConverter
 }
@@ -61,6 +64,10 @@ func Use(opt *Option) error {
 	}
 	_logger = logger
 	return nil
+}
+
+func UseCtxDecoder(decoder decoder.CtxDecoder) {
+	_logger.CtxDecoder = decoder
 }
 
 func NewLogger(opt *Option) (logger *Logger, err error) {
